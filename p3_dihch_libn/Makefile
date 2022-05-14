@@ -29,13 +29,13 @@ check:
 	$(CC) $(CFLAGS) -o test_accuracy test_accuracy.c $(LIBS)
 
 base_test: base
-	./gbfloat_base test1.jpg test_base.jpg 0.6 -2.0 2.0 1001 501
+	./gbfloat_base test.jpg test_base.jpg 0.6 -2.0 2.0 1001 201
 
 fast_test: fast
-	./gbfloat_fast test1.jpg test_fast.jpg 0.6 -2.0 2.0 1001 501
+	./gbfloat_fast test.jpg test_fast.jpg 0.6 -2.0 2.0 1001 201
 
 tmp_test: tmp
-	./gbfloat_tmp test1.jpg test_tmp.jpg 0.6 -2.0 2.0 1001 501
+	./gbfloat_tmp test.jpg test_m256d.jpg 0.6 -2.0 2.0 1001 201
 
 check_test: check
 	./test_accuracy test_base.jpg test_fast.jpg

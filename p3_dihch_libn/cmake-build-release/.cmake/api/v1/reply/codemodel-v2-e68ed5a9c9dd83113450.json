@@ -1,0 +1,105 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Release-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.14"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "project3",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "base::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-base-Release-d40defb6040a8238b8d5.json",
+					"name" : "base",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "check_base_fast::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-check_base_fast-Release-d8799e3848c660896698.json",
+					"name" : "check_base_fast",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "check_base_tmp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-check_base_tmp-Release-76b0c93b786c146973c7.json",
+					"name" : "check_base_tmp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "check_tmp_fast::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-check_tmp_fast-Release-26a7838be1b5982a568a.json",
+					"name" : "check_tmp_fast",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "fast::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-fast-Release-1d9f7373e015ac6d37c8.json",
+					"name" : "fast",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "tmp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-tmp-Release-4a1dd52d080a148e8898.json",
+					"name" : "tmp",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/lee/CA/p3_dihch_libn/cmake-build-release",
+		"source" : "/home/lee/CA/p3_dihch_libn"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

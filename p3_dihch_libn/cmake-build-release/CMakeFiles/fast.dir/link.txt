@@ -1,0 +1,1 @@
+/usr/bin/cc -O2 -fopenmp -pthread -mavx2 -mavx   CMakeFiles/fast.dir/gbfloat_fast.c.o  -o fast  -lm 

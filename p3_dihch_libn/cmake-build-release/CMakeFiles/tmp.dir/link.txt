@@ -1,0 +1,1 @@
+/usr/bin/cc -O2 -fopenmp -pthread -mavx2 -mavx   CMakeFiles/tmp.dir/gbfloat_m256d.c.o  -o tmp  -lm 

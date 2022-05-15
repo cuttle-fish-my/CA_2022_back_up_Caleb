@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="project3"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="check_base_fast">
+				<Option output="/tmp/tmp.2zHWrVoTcO/cmake-build-debug/check_base_fast" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 check_base_fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="check_base_fast/fast">
+				<Option output="/tmp/tmp.2zHWrVoTcO/cmake-build-debug/check_base_fast" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 check_base_fast/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="check_base_tmp">
+				<Option output="/tmp/tmp.2zHWrVoTcO/cmake-build-debug/check_base_tmp" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 check_base_tmp"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="check_base_tmp/fast">
+				<Option output="/tmp/tmp.2zHWrVoTcO/cmake-build-debug/check_base_tmp" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 check_base_tmp/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="base">
+				<Option output="/tmp/tmp.2zHWrVoTcO/cmake-build-debug/base" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 base"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="base/fast">
+				<Option output="/tmp/tmp.2zHWrVoTcO/cmake-build-debug/base" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 base/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="tmp">
+				<Option output="/tmp/tmp.2zHWrVoTcO/cmake-build-debug/tmp" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 tmp"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="tmp/fast">
+				<Option output="/tmp/tmp.2zHWrVoTcO/cmake-build-debug/tmp" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 tmp/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="check_tmp_fast">
+				<Option output="/tmp/tmp.2zHWrVoTcO/cmake-build-debug/check_tmp_fast" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 check_tmp_fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="check_tmp_fast/fast">
+				<Option output="/tmp/tmp.2zHWrVoTcO/cmake-build-debug/check_tmp_fast" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 check_tmp_fast/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="fast">
+				<Option output="/tmp/tmp.2zHWrVoTcO/cmake-build-debug/fast" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="fast/fast">
+				<Option output="/tmp/tmp.2zHWrVoTcO/cmake-build-debug/fast" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.2zHWrVoTcO/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 fast/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/tmp/tmp.2zHWrVoTcO/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/tmp/tmp.2zHWrVoTcO/gbfloat_base.c">
+			<Option target="base"/>
+		</Unit>
+		<Unit filename="/tmp/tmp.2zHWrVoTcO/gbfloat_fast.c">
+			<Option target="fast"/>
+		</Unit>
+		<Unit filename="/tmp/tmp.2zHWrVoTcO/gbfloat_m256d.c">
+			<Option target="tmp"/>
+		</Unit>
+		<Unit filename="/tmp/tmp.2zHWrVoTcO/stb_image.h">
+			<Option target="base"/>
+			<Option target="tmp"/>
+			<Option target="fast"/>
+		</Unit>
+		<Unit filename="/tmp/tmp.2zHWrVoTcO/stb_image_write.h">
+			<Option target="base"/>
+			<Option target="tmp"/>
+			<Option target="fast"/>
+		</Unit>
+		<Unit filename="/tmp/tmp.2zHWrVoTcO/test_accuracy.c">
+			<Option target="check_base_fast"/>
+			<Option target="check_base_tmp"/>
+			<Option target="check_tmp_fast"/>
+		</Unit>
+		<Unit filename="/tmp/tmp.2zHWrVoTcO/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

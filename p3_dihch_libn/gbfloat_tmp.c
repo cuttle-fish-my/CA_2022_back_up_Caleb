@@ -339,7 +339,7 @@
 
 #define PI 3.14159
 
-#define THREAD_NUMBER 20
+#define THREAD_NUMBER 4
 
 #define HORIZONTAL_BLOCK_SIZE 20
 

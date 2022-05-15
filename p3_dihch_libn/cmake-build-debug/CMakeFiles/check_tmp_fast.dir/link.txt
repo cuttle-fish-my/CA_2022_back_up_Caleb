@@ -1,0 +1,1 @@
+/usr/bin/cc -O0 -fopenmp -pthread -mavx2 -mavx   CMakeFiles/check_tmp_fast.dir/test_accuracy.c.o  -o check_tmp_fast  -lm 

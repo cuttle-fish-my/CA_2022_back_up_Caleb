@@ -6,6 +6,9 @@ all : base_test fast_test check_test
 base_fast_test: base_test fast_test check_test
 base_tmp_test: base_test tmp_test check_base_tmp
 fast_tmp_test: fast_test tmp_test check_fast_tmp
+test: fast
+	bash ./test.sh
+
 
 clean:
 	@-rm -f *.o gbfloat_base
@@ -29,13 +32,13 @@ check:
 	$(CC) $(CFLAGS) -o test_accuracy test_accuracy.c $(LIBS)
 
 base_test: base
-	./gbfloat_base test.jpg test_base.jpg 0.6 -2.0 2.0 1001 501
+	./gbfloat_base test1.jpg test_base.jpg 0.6 -2.0 2.0 1001 1001
 
 fast_test: fast
-	./gbfloat_fast test.jpg test_fast.jpg 0.6 -2.0 2.0 1001 501
+	./gbfloat_fast test1.jpg test_fast.jpg 0.6 -2.0 2.0 1001 1001
 
 tmp_test: tmp
-	./gbfloat_tmp test.jpg test_tmp.jpg 0.6 -2.0 2.0 1001 501
+	./gbfloat_tmp test1.jpg test_tmp.jpg 0.6 -2.0 2.0 1001 1001
 
 check_test: check
 	./test_accuracy test_base.jpg test_fast.jpg

@@ -19,28 +19,31 @@
 
 #define PI 3.14159
 
-#define THREAD_NUMBER 2
 
-#define HORIZONTAL_BLOCK_SIZE 20
+#define HORIZONTAL_BLOCK_SIZE 8
 
-#define VERTICAL_BLOCK_SIZE 20
+#define VERTICAL_BLOCK_SIZE 8
 
 typedef struct FVec {
-    unsigned int length;
-    unsigned int min_length;
-    unsigned int min_deta;
+    int length;
+    int min_length;
+    int min_deta;
     float *data;
     float *sum;
 } FVec;
 
 typedef struct Image {
-    unsigned int dimX, dimY, numChannels;
+    int dimX, dimY, numChannels;
     float *data;
 } Image;
 
+inline int min(int a, int b) {
+    return a < b ? a : b;
+}
+
 void normalize_FVec(FVec v) {
-    unsigned int i, j;
-    unsigned int ext = v.length / 2;
+    int i, j;
+    int ext = v.length / 2;
     v.sum[0] = v.data[ext];
     for (i = ext + 1, j = 1; i < v.length; i++, j++) {
         v.sum[j] = v.sum[j - 1] + v.data[i] * 2;
@@ -75,7 +78,7 @@ float gd(float a, float b, float x) {
     return exp((-.5) * c * c) / (a * sqrt(2 * PI));
 }
 
-FVec make_gv(float a, float x0, float x1, unsigned int length, unsigned int min_length) {
+FVec make_gv(float a, float x0, float x1, int length, int min_length) {
     FVec v;
     v.length = length;
     v.min_length = min_length;
@@ -95,14 +98,6 @@ FVec make_gv(float a, float x0, float x1, unsigned int length, unsigned int min_
     return v;
 }
 
-//void print_fvec(FVec v) {
-//    unsigned int i;
-//    printf("\n");
-//    for (i = 0; i < v.length; i++) {
-//        printf("%f ", v.data[i]);
-//    }
-//    printf("\n");
-//}
 
 Image img_sc(Image a) {
     Image b = a;
@@ -118,66 +113,82 @@ Image gb_h(Image a, FVec gv) {
     int offset;
     int x, y, channel;
     float *pc;
-    float sum;
+    float sum[3];
     int i;
-//    omp_set_num_threads(THREAD_NUMBER);
+    __m256i index = _mm256_set_epi32(7, 6, 5, 4, 3, 2, 1, 0);
+    __m256i zeros = _mm256_setzero_si256();
+    __m256i dimYMinus1 = _mm256_set1_epi32(a.dimY - 1);
+    __m256i dimY = _mm256_set1_epi32(a.dimY);
+    __m256i dimXMinus1 = _mm256_set1_epi32(a.dimX - 1);
+    __m256i dimX = _mm256_set1_epi32(a.dimX);
+    __m256i numChannels = _mm256_set1_epi32(a.numChannels);
 
-#pragma omp parallel for default(none) private(x, y, pc, i, sum, offset, channel) shared(gv, b, ext, a)
+    int blockSizeV = VERTICAL_BLOCK_SIZE;
+    int blockSizeH = HORIZONTAL_BLOCK_SIZE;
+
+    int xb, yb;
+
+#pragma omp parallel for default(none) schedule(dynamic) private(x, y, pc, i, sum, offset, channel, yb, xb) shared(gv, b, ext, a, index, zeros, dimYMinus1, dimX, dimXMinus1, dimY, numChannels, blockSizeH, blockSizeV)
     for (y = 0; y < a.dimY; y++) {
         for (x = 0; x < a.dimX; x++) {
+
             pc = get_pixel(b, x, y);
-            unsigned int deta = fmin(fmin(a.dimY - y - 1, y), fmin(a.dimX - x - 1, x));
-            deta = fmin(deta, gv.min_deta);
-            for (channel = 0; channel < a.numChannels; channel++) {
-                sum = 0;
-                __m256 sum_p = _mm256_setzero_ps();
+            int deta = min(min(a.dimY - y - 1, y), min(a.dimX - x - 1, x));
+            deta = min(deta, gv.min_deta);
+            __m256 gvSum = _mm256_set1_ps(gv.sum[ext - deta]);
+            __m256i location[3];
+            __m256 pixel_value_p[3];
+            sum[0] = 0;
+            sum[1] = 0;
+            sum[2] = 0;
+            __m256 sum_p[3] = {_mm256_setzero_ps(), _mm256_setzero_ps(), _mm256_setzero_ps()};
 
-                for (i = deta; i < deta / 8 * 8 + 8; ++i) {
-                    offset = i - ext;
-                    sum += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x + offset, y)[channel];
-                }
-
-                __m256i y_p = _mm256_set1_epi32(y);
-                y_p = _mm256_max_epi32(y_p, _mm256_set1_epi32(0));
-                y_p = _mm256_min_epi32(y_p, _mm256_set1_epi32(a.dimY - 1));
-                y_p = _mm256_mullo_epi32(y_p, _mm256_set1_epi32(a.dimX));
-
-                for (i = deta / 8 * 8 + 8; i < (gv.length - deta) / 8 * 8; i += 8) {
-                    offset = x + i - ext;
-                    __m256i x_p = _mm256_set_epi32(
-                            offset + 7,
-                            offset + 6,
-                            offset + 5,
-                            offset + 4,
-                            offset + 3,
-                            offset + 2,
-                            offset + 1,
-                            offset + 0
-                    );
-
-                    x_p = _mm256_max_epi32(x_p, _mm256_set1_epi32(0));
-                    x_p = _mm256_min_epi32(x_p, _mm256_set1_epi32(a.dimX - 1));
-                    __m256i index_p = _mm256_add_epi32(y_p, x_p);
-
-                    index_p = _mm256_mullo_epi32(index_p, _mm256_set1_epi32(a.numChannels));
-                    index_p = _mm256_add_epi32(index_p, _mm256_set1_epi32(channel));
-
-                    __m256 res_p = _mm256_div_ps(_mm256_loadu_ps(gv.data + i), _mm256_set1_ps(gv.sum[ext - deta]));
-                    __m256 pixel_value_p = _mm256_i32gather_ps(a.data, index_p, sizeof(float));
-
-                    sum_p = _mm256_add_ps(_mm256_mul_ps(res_p, pixel_value_p), sum_p);
-                }
-
-                for (i = (gv.length - deta) / 8 * 8; i < gv.length - deta; ++i) {
-                    offset = i - ext;
-                    sum += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x + offset, y)[channel];
-                }
-
-                for (i = 0; i < 8; ++i) {
-                    sum += sum_p[i];
-                }
-                pc[channel] = sum;
+            for (i = deta; i < deta / 8 * 8 + 8; ++i) {
+                offset = i - ext;
+                sum[0] += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x + offset, y)[0];
+                sum[1] += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x + offset, y)[1];
+                sum[2] += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x + offset, y)[2];
             }
+
+            __m256i y_p = _mm256_set1_epi32(y);
+            y_p = _mm256_max_epi32(y_p, zeros);
+            y_p = _mm256_min_epi32(y_p, dimYMinus1);
+            y_p = _mm256_mullo_epi32(y_p, dimX);
+
+            for (i = deta / 8 * 8 + 8; i < (gv.length - deta) / 8 * 8; i += 8) {
+                __m256i x_p = _mm256_add_epi32(_mm256_set1_epi32(x + i - ext), index);
+
+                x_p = _mm256_max_epi32(x_p, zeros);
+                x_p = _mm256_min_epi32(x_p, dimXMinus1);
+                __m256i index_p = _mm256_add_epi32(y_p, x_p);
+
+                index_p = _mm256_mullo_epi32(index_p, numChannels);
+                __m256 res_p = _mm256_div_ps(_mm256_loadu_ps(gv.data + i), gvSum);
+                location[0] = _mm256_add_epi32(index_p, _mm256_set1_epi32(0));
+                location[1] = _mm256_add_epi32(index_p, _mm256_set1_epi32(1));
+                location[2] = _mm256_add_epi32(index_p, _mm256_set1_epi32(2));
+                pixel_value_p[0] = _mm256_i32gather_ps(a.data, location[0], sizeof(float));
+                pixel_value_p[1] = _mm256_i32gather_ps(a.data, location[1], sizeof(float));
+                pixel_value_p[2] = _mm256_i32gather_ps(a.data, location[2], sizeof(float));
+                sum_p[0] = _mm256_add_ps(_mm256_mul_ps(res_p, pixel_value_p[0]), sum_p[0]);
+                sum_p[1] = _mm256_add_ps(_mm256_mul_ps(res_p, pixel_value_p[1]), sum_p[1]);
+                sum_p[2] = _mm256_add_ps(_mm256_mul_ps(res_p, pixel_value_p[2]), sum_p[2]);
+            }
+
+            for (i = (gv.length - deta) / 8 * 8; i < gv.length - deta; ++i) {
+                offset = i - ext;
+                sum[0] += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x + offset, y)[0];
+                sum[1] += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x + offset, y)[1];
+                sum[2] += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x + offset, y)[2];
+            }
+            for (channel = 0; channel < a.numChannels; channel++) {
+                for (i = 0; i < 8; ++i) {
+                    sum[channel] += sum_p[channel][i];
+                }
+            }
+            pc[0] = sum[0];
+            pc[1] = sum[1];
+            pc[2] = sum[2];
         }
     }
     return b;
@@ -189,73 +200,90 @@ Image gb_v(Image a, FVec gv) {
 
     int ext = (int) gv.length / 2;
     int offset;
-    int x, y, channel, xb, yb;
+    int x, y, channel;
     float *pc;
-    float sum;
+    float sum[3];
     int i;
-//    int blockSize = VERTICAL_BLOCK_SIZE;
-//    omp_set_num_threads(THREAD_NUMBER);
+    __m256i index = _mm256_set_epi32(7, 6, 5, 4, 3, 2, 1, 0);
+    __m256i zeros = _mm256_setzero_si256();
+    __m256i dimYMinus1 = _mm256_set1_epi32(a.dimY - 1);
+    __m256i dimY = _mm256_set1_epi32(a.dimY);
+    __m256i dimXMinus1 = _mm256_set1_epi32(a.dimX - 1);
+    __m256i dimX = _mm256_set1_epi32(a.dimX);
+    __m256i numChannels = _mm256_set1_epi32(a.numChannels);
 
-#pragma omp parallel for default(none) private(x, y, pc, i, sum, offset, channel) shared(gv, b, ext, a)
+    int blockSizeV = VERTICAL_BLOCK_SIZE;
+    int blockSizeH = HORIZONTAL_BLOCK_SIZE;
+
+    int xb, yb;
+
+#pragma omp parallel for schedule(dynamic) default(none) private(x, y, pc, i, sum, offset, channel, xb, yb) shared(gv, b, ext, a, index, zeros, dimY, dimXMinus1, dimX, dimYMinus1, numChannels, blockSizeH, blockSizeV)
     for (x = 0; x < a.dimX; ++x) {
         for (y = 0; y < a.dimY; ++y) {
-            for (channel = 0; channel < a.numChannels; ++channel) {
-                pc = get_pixel(b, x, y);
-                unsigned int deta = fmin(fmin(a.dimY - y - 1, y), fmin(a.dimX - x - 1, x));
-                deta = fmin(deta, gv.min_deta);
-                for (channel = 0; channel < a.numChannels; channel++) {
-                    sum = 0;
-                    __m256 sum_p = _mm256_setzero_ps();
+            pc = get_pixel(b, x, y);
+            int deta = min(min(a.dimY - y - 1, y), min(a.dimX - x - 1, x));
+            deta = min(deta, gv.min_deta);
+            __m256 gvSum = _mm256_set1_ps(gv.sum[ext - deta]);
+            __m256i location[3];
+            __m256 pixel_value_p[3];
+            sum[0] = 0;
+            sum[1] = 0;
+            sum[2] = 0;
+            __m256 sum_p[3] = {_mm256_setzero_ps(), _mm256_setzero_ps(), _mm256_setzero_ps()};
 
-                    for (i = deta; i < deta / 8 * 8 + 8; ++i) {
-                        offset = i - ext;
-                        sum += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x, y + offset)[channel];
-                    }
+            for (i = deta; i < deta / 8 * 8 + 8; ++i) {
+                offset = i - ext;
+                sum[0] += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x, y + offset)[0];
+                sum[1] += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x, y + offset)[1];
+                sum[2] += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x, y + offset)[2];
+            }
 
-                    __m256i x_p = _mm256_set1_epi32(x);
-                    x_p = _mm256_max_epi32(x_p, _mm256_set1_epi32(0));
-                    x_p = _mm256_min_epi32(x_p, _mm256_set1_epi32(a.dimX - 1));
+            __m256i x_p = _mm256_set1_epi32(x);
+            x_p = _mm256_max_epi32(x_p, zeros);
+            x_p = _mm256_min_epi32(x_p, dimXMinus1);
 
-                    for (i = deta / 8 * 8 + 8; i < (gv.length - deta) / 8 * 8; i += 8) {
-                        offset = y + i - ext;
-                        __m256i y_p = _mm256_set_epi32(
-                                offset + 7,
-                                offset + 6,
-                                offset + 5,
-                                offset + 4,
-                                offset + 3,
-                                offset + 2,
-                                offset + 1,
-                                offset + 0
-                        );
+            for (i = deta / 8 * 8 + 8; i < (gv.length - deta) / 8 * 8; i += 8) {
 
-                        y_p = _mm256_max_epi32(y_p, _mm256_set1_epi32(0));
-                        y_p = _mm256_min_epi32(y_p, _mm256_set1_epi32(a.dimY - 1));
-                        y_p = _mm256_mullo_epi32(y_p, _mm256_set1_epi32(a.dimX));
-                        __m256i index_p = _mm256_add_epi32(y_p, x_p);
-                        index_p = _mm256_mullo_epi32(index_p, _mm256_set1_epi32(a.numChannels));
-                        index_p = _mm256_add_epi32(index_p, _mm256_set1_epi32(channel));
+                __m256i y_p = _mm256_add_epi32(_mm256_set1_epi32(y + i - ext), index);
+                y_p = _mm256_max_epi32(y_p, zeros);
+                y_p = _mm256_min_epi32(y_p, dimYMinus1);
+                y_p = _mm256_mullo_epi32(y_p, dimX);
 
-                        __m256 res_p = _mm256_div_ps(_mm256_loadu_ps(gv.data + i), _mm256_set1_ps(gv.sum[ext - deta]));
+                __m256i index_p = _mm256_add_epi32(y_p, x_p);
+                index_p = _mm256_mullo_epi32(index_p, numChannels);
 
-                        __m256 pixel_value_p = _mm256_i32gather_ps(a.data, index_p, sizeof(float));
-                        sum_p = _mm256_add_ps(_mm256_mul_ps(res_p, pixel_value_p), sum_p);
-                    }
+                __m256 res_p = _mm256_div_ps(_mm256_loadu_ps(gv.data + i), gvSum);
 
-                    for (i = (gv.length - deta) / 8 * 8; i < gv.length - deta; ++i) {
-                        offset = i - ext;
-                        sum += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x, y + offset)[channel];
-                    }
+                location[0] = _mm256_add_epi32(index_p, _mm256_set1_epi32(0));
+                location[1] = _mm256_add_epi32(index_p, _mm256_set1_epi32(1));
+                location[2] = _mm256_add_epi32(index_p, _mm256_set1_epi32(2));
 
-                    for (i = 0; i < 8; ++i) {
-                        sum += sum_p[i];
-                    }
-                    pc[channel] = sum;
+                pixel_value_p[0] = _mm256_i32gather_ps(a.data, location[0], sizeof(float));
+                pixel_value_p[1] = _mm256_i32gather_ps(a.data, location[1], sizeof(float));
+                pixel_value_p[2] = _mm256_i32gather_ps(a.data, location[2], sizeof(float));
+
+                sum_p[0] = _mm256_add_ps(_mm256_mul_ps(res_p, pixel_value_p[0]), sum_p[0]);
+                sum_p[1] = _mm256_add_ps(_mm256_mul_ps(res_p, pixel_value_p[1]), sum_p[1]);
+                sum_p[2] = _mm256_add_ps(_mm256_mul_ps(res_p, pixel_value_p[2]), sum_p[2]);
+            }
+
+            for (i = (gv.length - deta) / 8 * 8; i < gv.length - deta; ++i) {
+                offset = i - ext;
+                sum[0] += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x, y + offset)[0];
+                sum[1] += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x, y + offset)[1];
+                sum[2] += gv.data[i] / gv.sum[ext - deta] * (float) get_pixel(a, x, y + offset)[2];
+
+            }
+            for (channel = 0; channel < a.numChannels; channel++) {
+                for (i = 0; i < 8; ++i) {
+                    sum[channel] += sum_p[channel][i];
                 }
             }
+            pc[0] = sum[0];
+            pc[1] = sum[1];
+            pc[2] = sum[2];
         }
     }
-
     return b;
 }
 
@@ -275,7 +303,7 @@ int main(int argc, char **argv) {
     }
 
     float a, x0, x1;
-    unsigned int dim, min_dim;
+    int dim, min_dim;
 
     sscanf(argv[3], "%f", &a);
     sscanf(argv[4], "%f", &x0);

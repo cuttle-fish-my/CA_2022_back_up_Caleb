@@ -1148,42 +1148,6 @@
 			],
 			"type" : "STATIC",
 			"value" : "/home/lee/CA/p3_dihch_libn"
-		},
-		{
-			"name" : "project_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/home/lee/CA/p3_dihch_libn/cmake-build-debug"
-		},
-		{
-			"name" : "project_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "project_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/home/lee/CA/p3_dihch_libn"
 		}
 	],
 	"kind" : "cache",

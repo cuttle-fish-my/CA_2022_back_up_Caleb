@@ -242,32 +242,32 @@ gbfloat_fast.c.s:
 	$(MAKE) -f CMakeFiles/fast.dir/build.make CMakeFiles/fast.dir/gbfloat_fast.c.s
 .PHONY : gbfloat_fast.c.s
 
-gbfloat_m256d.o: gbfloat_m256d.c.o
+gbfloat_m128.o: gbfloat_m128.c.o
 
-.PHONY : gbfloat_m256d.o
+.PHONY : gbfloat_m128.o
 
 # target to build an object file
-gbfloat_m256d.c.o:
-	$(MAKE) -f CMakeFiles/tmp.dir/build.make CMakeFiles/tmp.dir/gbfloat_m256d.c.o
-.PHONY : gbfloat_m256d.c.o
+gbfloat_m128.c.o:
+	$(MAKE) -f CMakeFiles/tmp.dir/build.make CMakeFiles/tmp.dir/gbfloat_m128.c.o
+.PHONY : gbfloat_m128.c.o
 
-gbfloat_m256d.i: gbfloat_m256d.c.i
+gbfloat_m128.i: gbfloat_m128.c.i
 
-.PHONY : gbfloat_m256d.i
+.PHONY : gbfloat_m128.i
 
 # target to preprocess a source file
-gbfloat_m256d.c.i:
-	$(MAKE) -f CMakeFiles/tmp.dir/build.make CMakeFiles/tmp.dir/gbfloat_m256d.c.i
-.PHONY : gbfloat_m256d.c.i
+gbfloat_m128.c.i:
+	$(MAKE) -f CMakeFiles/tmp.dir/build.make CMakeFiles/tmp.dir/gbfloat_m128.c.i
+.PHONY : gbfloat_m128.c.i
 
-gbfloat_m256d.s: gbfloat_m256d.c.s
+gbfloat_m128.s: gbfloat_m128.c.s
 
-.PHONY : gbfloat_m256d.s
+.PHONY : gbfloat_m128.s
 
 # target to generate assembly for a file
-gbfloat_m256d.c.s:
-	$(MAKE) -f CMakeFiles/tmp.dir/build.make CMakeFiles/tmp.dir/gbfloat_m256d.c.s
-.PHONY : gbfloat_m256d.c.s
+gbfloat_m128.c.s:
+	$(MAKE) -f CMakeFiles/tmp.dir/build.make CMakeFiles/tmp.dir/gbfloat_m128.c.s
+.PHONY : gbfloat_m128.c.s
 
 test_accuracy.o: test_accuracy.c.o
 
@@ -322,9 +322,9 @@ help:
 	@echo "... gbfloat_fast.o"
 	@echo "... gbfloat_fast.i"
 	@echo "... gbfloat_fast.s"
-	@echo "... gbfloat_m256d.o"
-	@echo "... gbfloat_m256d.i"
-	@echo "... gbfloat_m256d.s"
+	@echo "... gbfloat_m128.o"
+	@echo "... gbfloat_m128.i"
+	@echo "... gbfloat_m128.s"
 	@echo "... test_accuracy.o"
 	@echo "... test_accuracy.i"
 	@echo "... test_accuracy.s"

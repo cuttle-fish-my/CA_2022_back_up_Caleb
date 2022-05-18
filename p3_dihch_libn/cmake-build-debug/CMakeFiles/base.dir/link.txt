@@ -1,1 +1,0 @@
-/usr/bin/cc -O0 -fopenmp -pthread -mavx2 -mavx   CMakeFiles/base.dir/gbfloat_base.c.o  -o base  -lm 

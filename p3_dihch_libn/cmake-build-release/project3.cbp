@@ -308,7 +308,7 @@
 		<Unit filename="/tmp/tmp.2zHWrVoTcO/gbfloat_fast.c">
 			<Option target="fast"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.2zHWrVoTcO/gbfloat_m256d.c">
+		<Unit filename="/tmp/tmp.2zHWrVoTcO/gbfloat_m128.c">
 			<Option target="tmp"/>
 		</Unit>
 		<Unit filename="/tmp/tmp.2zHWrVoTcO/stb_image.h">

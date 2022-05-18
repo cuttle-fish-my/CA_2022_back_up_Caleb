@@ -48,7 +48,7 @@ int main(int argc, char** argv)
         delta += (fabs(Desimg.data[y] - Srcimg.data[y]) > 1) ? fabs(Desimg.data[y] - Srcimg.data[y]) : 0;
     }
     avg_delta = delta / (Desimg.dimX* Desimg.dimY * Desimg.numChannels);
-    printf("avg_delta = %lf\nthreshold = %lf\n", avg_delta, 1e-4);
+    printf("%lf\n", avg_delta);
     if (avg_delta < threshold)
         return 0;
     else

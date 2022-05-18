@@ -2,7 +2,19 @@
   <dictionary name="lee">
     <words>
       <w>deta</w>
+      <w>fmadd</w>
+      <w>fvec</w>
+      <w>gettimeofday</w>
+      <w>immintrin</w>
+      <w>inputjpg</w>
+      <w>loadf</w>
+      <w>loadu</w>
       <w>mullo</w>
+      <w>outputname</w>
+      <w>stbi</w>
+      <w>timersub</w>
+      <w>usec</w>
+      <w>xmmintrin</w>
     </words>
   </dictionary>
 </component>

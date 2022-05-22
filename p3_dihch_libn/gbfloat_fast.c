@@ -98,16 +98,29 @@ FVec make_gv(float a, float x0, float x1, int length, int min_length) {
     return v;
 }
 
-void img_div(Image *a) {
-    a->dataX = malloc((a->dimX * a->dimY + 100) * sizeof(float));
-    a->dataY = malloc((a->dimX * a->dimY + 100) * sizeof(float));
-    a->dataZ = malloc((a->dimX * a->dimY + 100) * sizeof(float));
+void img_div(Image *a, FVec gv) {
+    a->dataX = malloc((a->dimY * (a->dimX + gv.length) + 100) * sizeof(float));
+    a->dataY = malloc((a->dimY * (a->dimX + gv.length) + 100) * sizeof(float));
+    a->dataZ = malloc((a->dimY * (a->dimX + gv.length) + 100) * sizeof(float));
 #pragma omp parallel for
-//    default(none) private(a)
-    for (int i = 0; i < a->dimX * a->dimY; ++i) {
-        a->dataX[i] = a->data[3 * i + 0];
-        a->dataY[i] = a->data[3 * i + 1];
-        a->dataZ[i] = a->data[3 * i + 2];
+    for (int y = 0; y < a->dimY; ++y) {
+        int leftIdx = y * a->dimX, rightIdx = y * a->dimX + a->dimX - 1;
+        for (int i = 0; i < a->dimX + gv.length; ++i) {
+            int index = i + y * (a->dimX + gv.length);
+            if (index < y * (a->dimX + gv.length) + gv.length / 2) {
+                a->dataX[index] = a->data[3 * leftIdx + 0];
+                a->dataY[index] = a->data[3 * leftIdx + 1];
+                a->dataZ[index] = a->data[3 * leftIdx + 2];
+            } else if (index > y * (a->dimX + gv.length) + a->dimX + gv.length / 2 - 1) {
+                a->dataX[index] = a->data[3 * rightIdx + 0];
+                a->dataY[index] = a->data[3 * rightIdx + 1];
+                a->dataZ[index] = a->data[3 * rightIdx + 2];
+            } else {
+                a->dataX[index] = a->data[3 * (y * a->dimX + i - gv.length / 2) + 0];
+                a->dataY[index] = a->data[3 * (y * a->dimX + i - gv.length / 2) + 1];
+                a->dataZ[index] = a->data[3 * (y * a->dimX + i - gv.length / 2) + 2];
+            }
+        }
     }
 }
 
@@ -118,7 +131,7 @@ Image img_sc(Image a) {
     return b;
 }
 
-Image img_tran(Image a) {
+Image img_tran(Image a, FVec gv) {
     Image b = a;
     b.dimX = a.dimY;
     b.dimY = a.dimX;
@@ -127,39 +140,15 @@ Image img_tran(Image a) {
 //    default(none) private(b) shared(a)
     for (int x = 0; x < a.dimX; ++x) {
         for (int y = 0; y < a.dimY; ++y) {
-            b.data[(x * b.dimX + y) * b.numChannels] = a.data[(y * a.dimX + x) * a.numChannels];
+            b.data[(x * b.dimX + y) * b.numChannels + 0] = a.data[(y * a.dimX + x) * a.numChannels + 0];
             b.data[(x * b.dimX + y) * b.numChannels + 1] = a.data[(y * a.dimX + x) * a.numChannels + 1];
             b.data[(x * b.dimX + y) * b.numChannels + 2] = a.data[(y * a.dimX + x) * a.numChannels + 2];
         }
     }
-    img_div(&b);
+    img_div(&b, gv);
     return b;
 }
 
-void PreProcess(Image a, FVec gv, float *TableX, float *TableY, float *TableZ) {
-
-#pragma omp parallel for
-//    default(none) private(TableX, TableY, TableZ) shared(gv, a)
-    for (int y = 0; y < a.dimY; ++y) {
-        int leftIdx = y * a.dimX, rightIdx = y * a.dimX + a.dimX - 1;
-        for (int i = 0; i < a.dimX + gv.length; ++i) {
-            int index = i + y * (a.dimX + gv.length);
-            if (index < y * (a.dimX + gv.length) + gv.length / 2) {
-                TableX[index] = a.dataX[leftIdx];
-                TableY[index] = a.dataY[leftIdx];
-                TableZ[index] = a.dataZ[leftIdx];
-            } else if (index > y * (a.dimX + gv.length) + a.dimX + gv.length / 2 - 1) {
-                TableX[index] = a.dataX[rightIdx];
-                TableY[index] = a.dataY[rightIdx];
-                TableZ[index] = a.dataZ[rightIdx];
-            } else {
-                TableX[index] = a.dataX[y * a.dimX + i - gv.length / 2];
-                TableY[index] = a.dataY[y * a.dimX + i - gv.length / 2];
-                TableZ[index] = a.dataZ[y * a.dimX + i - gv.length / 2];
-            }
-        }
-    }
-}
 
 Image gb_h(Image a, FVec gv) {
 
@@ -177,13 +166,11 @@ Image gb_h(Image a, FVec gv) {
     __m256i dimX = _mm256_set1_epi32(a.dimX);
     __m256i numChannels = _mm256_set1_epi32(a.numChannels);
     __m256 pixel_value_p[3] = {_mm256_setzero_ps(), _mm256_setzero_ps(), _mm256_setzero_ps()};
-    float *TableX = malloc((a.dimY * (a.dimX + gv.length) + 100) * sizeof(float));
-    float *TableY = malloc((a.dimY * (a.dimX + gv.length) + 100) * sizeof(float));
-    float *TableZ = malloc((a.dimY * (a.dimX + gv.length) + 100) * sizeof(float));
-    PreProcess(a, gv, TableX, TableY, TableZ);
 
+
+//collapse(2) schedule(static, 80)  schedule(dynamic,16)
 #pragma omp parallel for schedule(dynamic) default(none) private(offset, pixel_value_p)\
-shared(TableX, TableY, TableZ, factor, gv, b, ext, a, index, zeros, dimYMinus1, dimX, dimXMinus1, dimY, numChannels)
+shared(factor, gv, b, ext, a, index, zeros, dimYMinus1, dimX, dimXMinus1, dimY, numChannels)
     for (int y = 0; y < a.dimY; y++) {
         for (int x = 0; x < a.dimX; x++) {
             int shift = y * (a.dimX + gv.length) + x - ext + gv.length / 2;
@@ -206,9 +193,9 @@ shared(TableX, TableY, TableZ, factor, gv, b, ext, a, index, zeros, dimYMinus1, 
             for (; i < bound; i += 8) {
                 __m256 res_p = _mm256_loadu_ps(gv.data + i);
 
-                sum_p[0] = _mm256_fmadd_ps(res_p, _mm256_loadu_ps(TableX + shift + i), sum_p[0]);
-                sum_p[1] = _mm256_fmadd_ps(res_p, _mm256_loadu_ps(TableY + shift + i), sum_p[1]);
-                sum_p[2] = _mm256_fmadd_ps(res_p, _mm256_loadu_ps(TableZ + shift + i), sum_p[2]);
+                sum_p[0] = _mm256_fmadd_ps(res_p, _mm256_loadu_ps(a.dataX + shift + i), sum_p[0]);
+                sum_p[1] = _mm256_fmadd_ps(res_p, _mm256_loadu_ps(a.dataY + shift + i), sum_p[1]);
+                sum_p[2] = _mm256_fmadd_ps(res_p, _mm256_loadu_ps(a.dataZ + shift + i), sum_p[2]);
             }
 
             bound = gv.length - deta;
@@ -229,21 +216,25 @@ shared(TableX, TableY, TableZ, factor, gv, b, ext, a, index, zeros, dimYMinus1, 
             pc[2] = sum[2] / gv.sum[ext - deta];
         }
     }
-    free(TableX);
-    free(TableY);
-    free(TableZ);
     return b;
 }
 
 
 Image apply_gb(Image a, FVec gv) {
-    img_div(&a);
+    img_div(&a, gv);
     Image b = gb_h(a, gv);
-    Image c = img_tran(b);
+    Image c = img_tran(b, gv);
     Image d = gb_h(c, gv);
-    Image e = img_tran(d);
+    Image e = img_tran(d, gv);
+    free(a.data);
+    free(a.dataX);
+    free(a.dataY);
+    free(a.dataZ);
     free(b.data);
     free(c.data);
+    free(c.dataX);
+    free(c.dataY);
+    free(c.dataZ);
     free(d.data);
     return e;
 }
@@ -277,9 +268,12 @@ int main(int argc, char **argv) {
     timersub(&stop_time, &start_time, &elapsed_time);
     printf("%f \n", (double) elapsed_time.tv_sec + (double) elapsed_time.tv_usec / 1000000.0);
     free(imgOut.data);
+    free(imgOut.dataX);
+    free(imgOut.dataY);
+    free(imgOut.dataZ);
     free(v.data);
     free(v.sum);
-    free(img.data);
+//    free(img.data);
     return 0;
 }
 

@@ -1,0 +1,26 @@
+00
+20
+40
+60
+80
+A0
+C0
+E0
+00
+20
+
+
+change the memory to 8 frame
+
+	frame		PPN		TLB		Page
+
+00	0		0		MISS		FAULT
+20	1		1		MISS		FAULT
+40	2		2		MISS		FAULT
+60	3		3		MISS		FAULT
+80	4		4		MISS		FAULT
+A0	5		5		MISS		FAULT
+C0	6		6		MISS		FAULT
+E0	7		7		MISS		FAULT
+00	0		0		MISS		HIT
+20	1		1		MISS		HIT
